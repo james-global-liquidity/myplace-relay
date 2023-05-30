@@ -33,6 +33,3 @@ dist
 
 # Env files
 *.env
-
-# Nostr data folder
-.nostr
