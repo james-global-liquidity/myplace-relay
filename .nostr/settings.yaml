@@ -1,0 +1,187 @@
+info:
+  relay_url: wss://myplace.nostr.land
+  name: lightningbridge.nostr.land
+  description: Lightning Bridge MyPlace relay. Part of nostr.land family of relays.
+  pubkey: npub1zsjcylpkcglugd5zsw6pun39y8pr3mkavh2a6a2s0dfvwv6aupzq8wk4z6
+  contact: pixelrouter@gmail.com
+payments:
+  enabled: true
+  processor: zebedee
+  feeSchedules:
+    admission:
+    - enabled: true
+      description: Admission fee charged per public key in msats (10000000 msats = 1 satoshi)
+      amount: 10000000
+      whitelists:
+        pubkeys:
+        - 2b1964b885de3fcbb33777874d06b05c254fecd561511622ce86e3d1851949fa
+    publication:
+    - enabled: false
+      description: Publication fee charged per event in msats (1000 msats = 1 satoshi)
+      amount: 10
+      whitelists:
+        pubkeys:
+        - 2b1964b885de3fcbb33777874d06b05c254fecd561511622ce86e3d1851949fa
+paymentsProcessors:
+  zebedee:
+    baseURL: https://api.zebedee.io/
+    callbackBaseURL: https://puravida.nostr.land/callbacks/zebedee
+    ipWhitelist:
+      - "3.225.112.64"
+      - "::ffff:3.225.112.64"
+network:
+  maxPayloadSize: 262144
+  remoteIpHeader: x-forwarded-for
+  idleTimeout: 60
+workers:
+  count: 8
+mirroring:
+  static:
+    - address: eden.nostr.land
+      filters:
+        - limit: 1000
+limits:
+  invoice:
+    rateLimits:
+    - period: 60000
+      rate: 3
+    - period: 3600000
+      rate: 10
+    - period: 86400000
+      rate: 20
+    ipWhitelist:
+    - "::1"
+    - "10.10.10.1"
+    - "::ffff:10.10.10.1"
+  connection:
+    rateLimits:
+    - period: 1000
+      rate: 6
+    - period: 60000
+      rate: 30
+    - period: 3600000
+      rate: 300
+    - period: 86400000
+      rate: 1440
+    ipWhitelist:
+    - "::1"
+    - "10.10.10.1"
+    - "::ffff:10.10.10.1"
+  event:
+    eventId:
+      minLeadingZeroBits: 0
+    kind:
+      whitelist: []
+      blacklist: []
+    pubkey:
+      minBalance: 1000000
+      minLeadingZeroBits: 0
+      whitelist: []
+      blacklist: []
+    createdAt:
+      maxPositiveDelta: 900
+      maxNegativeDelta: 0
+    content:
+    - description: 64 KB for event kind ranges 0-10 and 40-49
+      kinds:
+      - - 0
+        - 10
+      - - 40
+        - 49
+      maxLength: 65536
+    - description: 96 KB for event kind ranges 11-39 and 50-max
+      kinds:
+      - - 11
+        - 39
+      - - 50
+        - 9007199254740991
+      maxLength: 98304
+    rateLimits:
+    - description: 6 events/min for event kinds 0, 3, 40 and 41
+      kinds:
+      - 0
+      - 3
+      - 40
+      - 41
+      period: 60000
+      rate: 6
+    - description: 12 events/min for event kinds 1, 2, 4 and 42
+      kinds:
+      - 1
+      - 2
+      - 4
+      - 42
+      period: 60000
+      rate: 12
+    - description: 360 events/hour for event kinds 1, 2, 4 and 42
+      kinds:
+      - 1
+      - 2
+      - 4
+      - 42
+      period: 3600000
+      rate: 360
+    - description: 30 events/min for event kind ranges 5-7 and 43-49
+      kinds:
+      - - 5
+        - 7
+      - - 43
+        - 49
+      period: 60000
+      rate: 30
+    - description: 24 events/min for replaceable events and parameterized replaceable
+        events
+      kinds:
+      - - 10000
+        - 19999
+      - - 30000
+        - 39999
+      period: 60000
+      rate: 24
+    - description: 60 events/min for ephemeral events
+      kinds:
+      - - 20000
+        - 29999
+      period: 60000
+      rate: 60
+    - description: 720 events/hour for all events
+      period: 3600000
+      rate: 720
+    - description: 2880 events/day for all events
+      period: 86400000
+      rate: 2880
+    whitelists:
+      pubkeys: [81d0ccce4591fc4e19e3ef752a2b003ef23a986cb31e7835ea7d8d7cd96d47ea]
+      ipAddresses:
+      - "::1"
+      - "10.10.10.1"
+      - "::ffff:10.10.10.1"
+  client:
+    subscription:
+      maxSubscriptions: 10
+      maxFilters: 10
+  message:
+    rateLimits:
+    # - description: 60 subscriptions/min
+    #   types:
+    #   - REQ
+    #   period: 60000
+    #   rate: 60
+    # - description: 2880 subscriptions/hour
+    #   types:
+    #   - REQ
+    #   period: 3600000
+    #   rate: 2880
+    - description: 120 raw messages/min
+      period: 60000
+      rate: 120
+    - description: 3600 raw messages/hour
+      period: 3600000
+      rate: 3600
+    - description: 86400 raw messages/day
+      period: 86400000
+      rate: 86400
+    ipWhitelist:
+    - "::1"
+    - "10.10.10.1"
+    - "::ffff:10.10.10.1"
