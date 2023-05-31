@@ -10,7 +10,7 @@ The purpose of this NIP is to allow users to send prompts to special relay's whi
 
 
 ## Event format
-This NIP specifies the use of the `TBD` event type, having in `content` a description of the file content, and a list of tags described below:
+This NIP specifies the use of the `TBD` event type, having in `prompt` a stable diffusion image prompt, and a list of tags described below:
 
 * `prompt` the stable diffusion prompt
 * `negative-prompt` stable diffusion negative prompt as string,
