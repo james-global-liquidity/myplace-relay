@@ -70,7 +70,7 @@ LABEL org.opencontainers.image.licenses=MIT
 
 
 WORKDIR /app
-
+ADD .nostr .nostr
 COPY --from=build /build/dist .
 
 RUN npm install --omit=dev --quiet
