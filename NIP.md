@@ -6,7 +6,7 @@ Stable Diffusion
 
 `draft` `optional` `author:pixelrouter`
 
-The purpose of this NIP is to allow users to send prompts to special relay's which will generate an image, using stable diffusion, for a fee specified in satoshis, and which will return a public link to the image to the user via encrypted direct message (NIP-04),
+The purpose of this NIP is to allow users to send prompts to supporting relays which will generate an image, using stable diffusion, for a fee specified in satoshis, and which will return a public link to the image to the user via encrypted direct message (NIP-04),
 
 
 ## Event format
